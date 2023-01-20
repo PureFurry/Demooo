@@ -13,16 +13,16 @@ public class PlayerCont : MonoBehaviour
     public GameObject playerObject;
     public float jumpForce;
     public LayerMask groundObject;
-    private BoxCollider2D player_BoxCollider;
+    private CapsuleCollider2D player_CapsuleCollider;
     private Animator playerAnimator;
     bool isFaceRight =true;
     public Text coinText;
-    public GameObject resertButton, deadText;
+    public GameObject resertButton, deadText, winText;
     public static int totalCoins;
     void Start()
     {
         player_r2d = GetComponent<Rigidbody2D>();
-        player_BoxCollider = GetComponent<BoxCollider2D>();
+        player_CapsuleCollider = GetComponent<CapsuleCollider2D>();
         playerAnimator = GetComponent<Animator>();
     }
 
@@ -53,7 +53,7 @@ public class PlayerCont : MonoBehaviour
         
     }
     bool GroundCheck(){
-        RaycastHit2D p_raycastHit2d = Physics2D.BoxCast(player_BoxCollider.bounds.center, player_BoxCollider.bounds.size, 0f, Vector2.down, .1f, groundObject);
+        RaycastHit2D p_raycastHit2d = Physics2D.BoxCast(player_CapsuleCollider.bounds.center, player_CapsuleCollider.bounds.size, 0f, Vector2.down, .1f, groundObject);
         return p_raycastHit2d.collider == null;
     }
     void AnimatonCont(){
@@ -76,6 +76,11 @@ public class PlayerCont : MonoBehaviour
             Time.timeScale = 0;
             deadText.SetActive(true);
             resertButton.SetActive(true);
+        }
+        if (other.CompareTag("EndPoint"))
+        {
+            Time.timeScale = 0;
+            winText.SetActive(true);            
         }
     }
 }

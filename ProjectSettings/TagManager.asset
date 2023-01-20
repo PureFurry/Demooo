@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Coin
   - Spike
+  - EndPoint
   layers:
   - Default
   - TransparentFX
