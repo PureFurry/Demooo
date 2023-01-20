@@ -19,11 +19,13 @@ public class PlayerCont : MonoBehaviour
     public Text coinText;
     public GameObject resertButton, deadText, winText;
     public static int totalCoins;
+    public AudioSource audioManager;
     void Start()
     {
         player_r2d = GetComponent<Rigidbody2D>();
         player_CapsuleCollider = GetComponent<CapsuleCollider2D>();
         playerAnimator = GetComponent<Animator>();
+        audioManager = GetComponent<AudioSource>();
     }
 
 
@@ -70,6 +72,7 @@ public class PlayerCont : MonoBehaviour
         {
             totalCoins++;
             coinText.text = totalCoins.ToString();
+            audioManager.Play();
         }
         if(other.CompareTag("Spike")){
             totalCoins = 0;
@@ -80,7 +83,8 @@ public class PlayerCont : MonoBehaviour
         if (other.CompareTag("EndPoint"))
         {
             Time.timeScale = 0;
-            winText.SetActive(true);            
+            winText.SetActive(true);   
+            resertButton.SetActive(true);         
         }
     }
 }
